@@ -1,23 +1,41 @@
-def input_number():
-    # input number
-    number = int(input('Введите число для изучения: '))
+#Таблица умножения
+#Задает примеры для решения по таблице умножения. Можно самому настроить диапазон чисел для примеров.
+
+import random
+
+def input_number(text):
+    ''' input number '''
+    number = int(input(text))
     return number
 
-def greeting(num):
-    print(f'Введено число {num} \nИзучаем таблицу умножения на {num}')
+def greeting(start, finish):
+    print(f'Решаем примеры от {start} до {finish} \n')
 
-def get_answer(mul_1, mul_2):
-    answer = int(input(f'Введите ответ на {mul_1} x {mul_2} = ' ))
-    return answer
+def main():
+    tries = input_number('Введи кол-во задач: ')
+    start = input_number('Введи ОТ какого числа будут начинатся примеры: ')
+    finish = input_number('Введи ДО каким числом будут заканчиваться примеры: ')
+    greeting(start, finish)
+    countyes = 0
+    countno = 0
+    for i in range(tries):
+        a = int(random.randint(start,finish))
+        b = int(random.randint(start,finish))
+        correct = a * b
+        print(a, '{X}', b, '= ',end=' ')
+        answer = int(input())
+        if answer == correct:
+            print('Правильно')
+            countyes += 1
+        else:
+            print('Неправильно')
+            countno += 1
+    print('Всего примеров решено: ', tries)
+    print('Правильно решено: ', countyes)
+    print('Неправильно решено: ', countno)
+    input('\nВведите Enter, чтобы выйти')
 
-def check_answer(mul_1, mul_2, answer):
-    if answer == mul_1 * mul_2:
-        print('Верно')
-    else:
-        print(f'Неверно. Правильный ответ {mul_1 * mul_2}')
 
 
-number = input_number()
-greeting(number)
-answer = get_answer(number, 10)
-check_answer(number, 10, answer)
+if __name__ == '__main__':
+    main()
