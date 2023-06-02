@@ -11,6 +11,9 @@ def input_number(text):
 def greeting(start, finish):
     print(f'Решаем примеры от {start} до {finish} \n')
 
+def mult(a, b):
+    return a * b
+
 def main():
     tries = input_number('Введи кол-во задач: ')
     start = input_number('Введи ОТ какого числа будут начинатся примеры: ')
@@ -21,20 +24,19 @@ def main():
     for i in range(tries):
         a = int(random.randint(start,finish))
         b = int(random.randint(start,finish))
-        correct = a * b
-        print(a, '{X}', b, '= ',end=' ')
+        print(a, 'X', b, '= ',end=' ')
         answer = int(input())
+        correct = mult(a, b)
         if answer == correct:
             print('Правильно')
             countyes += 1
         else:
-            print('Неправильно')
+            print(f'Неправильно. Правильный ответ {correct}')
             countno += 1
     print('Всего примеров решено: ', tries)
     print('Правильно решено: ', countyes)
     print('Неправильно решено: ', countno)
     input('\nВведите Enter, чтобы выйти')
-
 
 
 if __name__ == '__main__':
