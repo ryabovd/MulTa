@@ -3,11 +3,13 @@
 
 import random
 
+
 def input_number(text):
-    ''' input number '''
+    ''' input number for number tasks or start number or finish number'''
     text.strip()
     number = int(input(text))
     return number
+
 
 def check_number(text):
     if text.isnumeric():
@@ -19,8 +21,10 @@ def check_number(text):
 def greeting(start, finish):
     print(f'Решаем примеры от {start} до {finish} \n')
 
+
 def mult(a, b):
     return a * b
+
 
 def main():
     tries = input_number('Введи кол-во задач: ')
@@ -36,10 +40,10 @@ def main():
         answer = int(input())
         correct = mult(a, b)
         if answer == correct:
-            print('Правильно')
+            print('Правильно\n')
             countyes += 1
         else:
-            print(f'Неправильно. Правильный ответ {correct}')
+            print(f'Неправильно. Правильный ответ {correct}\n')
             countno += 1
     print('Всего примеров решено: ', tries)
     print('Правильно решено: ', countyes)
