@@ -5,8 +5,16 @@ import random
 
 def input_number(text):
     ''' input number '''
+    text.strip()
     number = int(input(text))
     return number
+
+def check_number(text):
+    if text.isnumeric():
+        return int(text)
+    else:
+        pass
+
 
 def greeting(start, finish):
     print(f'Решаем примеры от {start} до {finish} \n')
