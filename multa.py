@@ -23,6 +23,10 @@ def greeting(name, start, finish):
     print(f'{name} решаем примеры от {start} до {finish} \n')
 
 
+def min_max(a, b):
+    a, b = min(a, b), max(a, b)
+    return a, b
+
 def mult(a, b):
     return a * b
 
@@ -36,7 +40,7 @@ def main():
     tries = input_number('Введи кол-во задач: ')
     start = input_number('Введи ОТ какого числа будут начинатся примеры: ')
     finish = input_number('Введи ДО каким числом будут заканчиваться примеры: ')
-    greeting(user, start, finish)
+    greeting(user, min_max(start, finish))
     countyes = 0
     countno = 0
     for i in range(tries):
