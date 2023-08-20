@@ -12,6 +12,7 @@ def input_number(text):
 
 
 def check_number(text):
+    '''Проверить число или нет'''
     if text.isnumeric():
         return int(text)
     else:
