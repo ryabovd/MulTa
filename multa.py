@@ -19,19 +19,24 @@ def check_number(text):
         pass
 
 
-def greeting(start, finish):
-    print(f'Решаем примеры от {start} до {finish} \n')
+def greeting(name, start, finish):
+    print(f'{name} решаем примеры от {start} до {finish} \n')
 
 
 def mult(a, b):
     return a * b
 
+def name():
+    n = input("Как вас зовут?")
+    return n
+
 
 def main():
+    user = name()
     tries = input_number('Введи кол-во задач: ')
     start = input_number('Введи ОТ какого числа будут начинатся примеры: ')
     finish = input_number('Введи ДО каким числом будут заканчиваться примеры: ')
-    greeting(start, finish)
+    greeting(user, start, finish)
     countyes = 0
     countno = 0
     for i in range(tries):
