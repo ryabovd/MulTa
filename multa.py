@@ -32,7 +32,7 @@ def mult(a, b):
     return a * b
 
 def name():
-    n = input("Как вас зовут?")
+    n = input("Как вас зовут? ")
     return n
 
 
