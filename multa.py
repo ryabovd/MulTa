@@ -23,7 +23,7 @@ def check_number(str):
 
 
 def greeting(name, start, finish):
-    print(f'{name} решаем примеры от {start} до {finish} \n')
+    print(f'{name}, решаем примеры от {start} до {finish} \n')
 
 
 def min_max(a, b):
