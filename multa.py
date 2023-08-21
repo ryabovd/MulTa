@@ -6,17 +6,20 @@ import random
 
 def input_number(text):
     ''' input number for number tasks or start number or finish number'''
-    text.strip()
-    number = int(input(text))
-    return number
+    while True:
+        number = input(text)
+        if check_number(number) == True:
+            return int(number)
+        else:
+            print(f"{text} не является числом. \nВведите новое число \n")       
 
 
-def check_number(text):
+def check_number(str):
     '''Проверить число или нет'''
-    if text.isnumeric():
-        return int(text)
+    if str.isnumeric() == True:
+        return True
     else:
-        pass
+        return False
 
 
 def greeting(name, start, finish):
