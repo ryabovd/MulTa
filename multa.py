@@ -60,6 +60,12 @@ def pair(finish):
     return a, b
 
 
+def read(name_file):
+    with open(name_file + '.txt', 'r') as f:
+        text = f.read()
+    return text
+
+
 def main():
     user = name()
     tries = int(input_number('Введи кол-во задач: '))
