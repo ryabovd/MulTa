@@ -65,6 +65,10 @@ def read(name_file):
         text = f.read()
     return text
 
+def create_list(text):
+    text_list = text.split('\n')
+    return text_list
+
 
 def main():
     user = name()
