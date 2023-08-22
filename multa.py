@@ -61,7 +61,7 @@ def pair(finish):
 
 
 def read(name_file):
-    with open(name_file + '.txt', 'r') as f:
+    with open(name_file + '.txt', 'r', encoding='utf-8') as f:
         text = f.read()
     return text
 
