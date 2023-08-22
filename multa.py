@@ -74,7 +74,7 @@ def main():
 #        a = int(random.randint(start,finish))
 #        b = int(random.randint(start,finish))
         print(a, 'X', b, '= ',end=' ')
-        answer = int(input_number())
+        answer = int(input_number(""))
         correct = mult(a, b)
         if answer == correct:
             print('Правильно\n')
