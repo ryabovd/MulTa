@@ -14,6 +14,7 @@ def input_number(text):
             print(f"{number} не является числом. \nВведите новое число \n")
             number = input(text).strip()       
 
+
 def isNumeric(s):
     return s.isdigit()
 
@@ -35,8 +36,8 @@ def check_number(str):
         return False
     
 
-def greeting(name, finish):
-    print(f'{name}, решаем примеры до {finish} \n')
+def greeting(user_name, finish):
+    print(f'{user_name}, решаем примеры до {finish} \n')
 
 
 def min_max(a, b):
@@ -49,9 +50,17 @@ def mult(a, b):
     return a * b
 
 
-def name():
+def user_name():
     n = input("Как вас зовут? ")
     return n
+
+
+def check_user_name(user_name):
+    pass
+
+
+def add_user_name(user_name):
+    pass
 
 
 def pair(finish):
@@ -60,10 +69,11 @@ def pair(finish):
     return a, b
 
 
-def read(name_file):
+def read_text_file(name_file):
     with open(name_file + '.txt', 'r', encoding='utf-8') as f:
         text = f.read()
     return text
+
 
 def create_list(text):
     text_list = text.split('\n')
@@ -71,12 +81,13 @@ def create_list(text):
 
 
 def main():
-    user = name()
+    read_text_file('users')
+    user_name = user_name()
     tries = int(input_number('Введи кол-во задач: '))
 #    start = input_number('Введи ОТ какого числа будут начинатся примеры: ')
     finish = int(input_number('Введи ДО какого числа будут примеры: '))
 #    start, finish = min_max(start, finish)
-    greeting(user, finish)
+    greeting(user_name, finish)
     countyes = 0
     countno = 0
     for i in range(tries):
