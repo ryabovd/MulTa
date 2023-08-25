@@ -15,16 +15,16 @@ def input_number(text):
             number = input(text).strip()       
 
 
-def isNumeric(s):
-    return s.isdigit()
+"""def isNumeric(s):
+    return s.isdigit()"""
 
 
-def is_int(str):
+"""def is_int(str):
     try:
         int(str)
         return True
     except ValueError:
-        return False
+        return False"""
         
 
 def check_number(str):
@@ -40,10 +40,10 @@ def greeting(user_name, finish):
     print(f'{user_name}, решаем примеры до {finish} \n')
 
 
-def min_max(a, b):
+"""def min_max(a, b):
     min_number = min(a, b)
     max_number = max(a, b)
-    return min_number, max_number
+    return min_number, max_number"""
 
 
 def mult(a, b):
@@ -51,8 +51,8 @@ def mult(a, b):
 
 
 def user_name():
-    n = input("Как вас зовут? ")
-    return n
+    name = input("Как вас зовут? ")
+    return name
 
 
 def check_user_name(user_name):
@@ -65,7 +65,7 @@ def add_user_name(user_name):
 
 def pair(finish):
     a = int(random.randint(1, finish))
-    b = int(random.randint(1, 10))    
+    b = int(random.randint(1, finish))    
     return a, b
 
 
@@ -75,19 +75,46 @@ def read_text_file(name_file):
     return text
 
 
+def readlines(name_file):
+    with open(name_file + '.txt', 'r', encoding='utf-8') as f:
+        list = f.readlines()
+    return list
+
+
 def create_list(text):
     text_list = text.split('\n')
     return text_list
 
 
+def create_dict(list):
+    dict = {}
+    for line in list:
+        line = line.strip().split(', ')
+        name, number = line
+        dict[name] = number
+    return dict
+
+
 def main():
-    read_text_file('users')
-    user_name = user_name()
+    users = readlines('users')
+    user_dict = create_dict(users)
+    print(user_dict)
+    name = user_name()
+    if name in user_dict:
+        finish = user_dict[name]
+        #print(f'имя в списке - {name}. Число - {finish}')
+    else:
+        finish = int(input_number(f'{name}, до какого числа учим таблицу (10, 20)? '))
+        user_dict[name] = finish
+        #print(user_dict)
+        #Добавить пользователя и число до которого решаем примеры в словарь
+        #Добавить пользователя и число в файл пользователей
+        # продолжаем программу
     tries = int(input_number('Введи кол-во задач: '))
 #    start = input_number('Введи ОТ какого числа будут начинатся примеры: ')
-    finish = int(input_number('Введи ДО какого числа будут примеры: '))
+#    finish = int(input_number('Введи ДО какого числа будут примеры: '))
 #    start, finish = min_max(start, finish)
-    greeting(user_name, finish)
+    greeting(name, finish)
     countyes = 0
     countno = 0
     for i in range(tries):
