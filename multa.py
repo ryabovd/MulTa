@@ -101,7 +101,7 @@ def main():
     print(user_dict)
     name = user_name()
     if name in user_dict:
-        finish = user_dict[name]
+        finish = int(user_dict[name])
         #print(f'имя в списке - {name}. Число - {finish}')
     else:
         finish = int(input_number(f'{name}, до какого числа учим таблицу (10, 20)? '))
