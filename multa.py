@@ -75,6 +75,19 @@ def read_text_file(name_file):
     return text
 
 
+def write_text_file(name_file, mode, list_of_strings):
+    with open(name_file + ".txt", mode, encoding="utf-8") as f:
+        f.writelines(list_of_strings)
+
+
+def list_of_strings(dict):
+    list_of_strings = []
+    for key in dict:
+        line = key + ', ' + dict[key] + '\n'
+        list_of_strings.append(line)
+    return list_of_strings
+
+
 def readlines(name_file):
     with open(name_file + '.txt', 'r', encoding='utf-8') as f:
         list = f.readlines()
@@ -106,6 +119,7 @@ def main():
     else:
         finish = int(input_number(f'{name}, до какого числа учим таблицу (10, 20)? '))
         user_dict[name] = finish
+        write_text_file('users', 'a', [name + ', ' + str(finish) + '\n'])
         #print(user_dict)
         #Добавить пользователя и число до которого решаем примеры в словарь
         #Добавить пользователя и число в файл пользователей
