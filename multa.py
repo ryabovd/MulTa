@@ -120,6 +120,10 @@ def main():
         finish = int(input_number(f'{name}, до какого числа учим таблицу (10, 20)? '))
         user_dict[name] = finish
         write_text_file('users', 'a', [name + ', ' + str(finish) + '\n'])
+        # Записать файл для нового пользователя
+        new_user_data_list = ['0, ' for i in range(finish-1)] + ['0\n']
+        new_user_data_list = new_user_data_list * finish
+        write_text_file(name, 'w', new_user_data_list)
         #print(user_dict)
         #Добавить пользователя и число до которого решаем примеры в словарь
         #Добавить пользователя и число в файл пользователей
