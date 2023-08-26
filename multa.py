@@ -94,8 +94,11 @@ def readlines(name_file):
     return list
 
 
-def create_list(text):
-    text_list = text.split('\n')
+def create_list(list):
+    text_list = []
+    for line in list:
+        line = line.strip().split(', ')
+        text_list.append(line)
     return text_list
 
 
@@ -133,6 +136,7 @@ def main():
 #    finish = int(input_number('Введи ДО какого числа будут примеры: '))
 #    start, finish = min_max(start, finish)
     greeting(name, finish)
+    user_table = create_list(readlines(name))
     countyes = 0
     countno = 0
     for i in range(tries):
