@@ -88,6 +88,16 @@ def list_of_strings(dict):
     return list_of_strings
 
 
+def list_of_strings_from_list(list):
+    list_of_strings = []
+    string = ''
+    for i in list:
+        str = (', ').join(i) + '\n'
+        string += str
+    list_of_strings.append(string)
+    return list_of_strings
+
+
 def readlines(name_file):
     with open(name_file + '.txt', 'r', encoding='utf-8') as f:
         list = f.readlines()
@@ -111,6 +121,14 @@ def create_dict(list):
     return dict
 
 
+def diff_stat(user_stat, result_list):
+    new_user_stat = user_stat
+    for i in result_list:
+        a, b, result = i
+        new_user_stat[a-1][b-1] = str(round((float(new_user_stat[a-1][b-1]) + result)/2, 2))
+    return new_user_stat
+
+
 def main():
     users = readlines('users')
     user_dict = create_dict(users)
@@ -118,7 +136,6 @@ def main():
     name = user_name()
     if name in user_dict:
         finish = int(user_dict[name])
-        #print(f'имя в списке - {name}. Число - {finish}')
     else:
         finish = int(input_number(f'{name}, до какого числа учим таблицу (10, 20)? '))
         user_dict[name] = finish
@@ -126,19 +143,22 @@ def main():
         # Записать файл для нового пользователя
         new_user_data_list = ['0, ' for i in range(finish-1)] + ['0\n']
         new_user_data_list = new_user_data_list * finish
+        print(new_user_data_list)
         write_text_file(name, 'w', new_user_data_list)
-        #print(user_dict)
         #Добавить пользователя и число до которого решаем примеры в словарь
         #Добавить пользователя и число в файл пользователей
         # продолжаем программу
-    tries = int(input_number('Введи кол-во задач: '))
 #    start = input_number('Введи ОТ какого числа будут начинатся примеры: ')
 #    finish = int(input_number('Введи ДО какого числа будут примеры: '))
 #    start, finish = min_max(start, finish)
     greeting(name, finish)
-    user_table = create_list(readlines(name))
+    tries = int(input_number('Введи кол-во задач: '))
+    user_stat = create_list(readlines(name))
+#    print(name)
+#    print(user_stat)
     countyes = 0
     countno = 0
+    result_list = []
     for i in range(tries):
         a, b = pair(finish)
 #        a = int(random.randint(start,finish))
@@ -149,14 +169,28 @@ def main():
         if answer == correct:
             print('Правильно\n')
             countyes += 1
+            result_list.append([a, b, 1])
         else:
             print(f'Неправильно. Правильный ответ {correct}\n')
             countno += 1
+            result_list.append([a, b, 0])
     print('Всего примеров решено: ', tries)
     print('Правильно решено: ', countyes)
     print('Неправильно решено: ', countno)
+#    print(result_list)
+    new_stat = diff_stat(user_stat, result_list)
+#    print('new_stat', new_stat)
+#    print(list_of_strings_from_list(new_stat))
+    write_text_file(name, 'w', list_of_strings_from_list(new_stat))
     input('\nВведите Enter, чтобы выйти')
 
 
 if __name__ == '__main__':
     main()
+
+"""
+Найти в файле статистики результаты < 0.8
+Привести их к виду [a, b] и записать в список списков
+По длине списка случайно выбирать списки [a, b] и фиксировать ответы
+Записать ответы в файл статистики
+"""
