@@ -129,6 +129,25 @@ def diff_stat(user_stat, result_list):
     return new_user_stat
 
 
+def search_stat(user_stat):
+    min_result = 0.8
+    search_result_list = []
+    for a in range(len(user_stat)):
+        #print('a', a)
+        for b in range(len(user_stat[a])):
+            #print('b', b)
+            if float(user_stat[a][b]) <= min_result:
+                search_result_list.append([a+1, b+1])
+            else:
+                continue
+    return search_result_list
+
+
+def print_stat(list):
+    for el in list:
+        print(el)
+
+
 def main():
     users = readlines('users')
     user_dict = create_dict(users)
@@ -154,12 +173,87 @@ def main():
     greeting(name, finish)
     tries = int(input_number('Введи кол-во задач: '))
     user_stat = create_list(readlines(name))
+    print("user_stat")
+    print_stat(user_stat)
+    search_result_list = search_stat(user_stat)
+    #print('search_result_list', search_result_list)
 #    print(name)
 #    print(user_stat)
     countyes = 0
     countno = 0
     result_list = []
-    for i in range(tries):
+    #print('round(len(search_result_list) * 0.8, 0)', round(len(search_result_list) * 0.8, 0))
+    #print('tries', tries)
+    #if round(len(search_result_list) * 0.8) <= tries:
+    i = 1
+    while i <= tries * 0.8:
+        #print("i", i)
+        #print("tries", tries)
+        #print("Внутренний цикл")
+        if len(search_result_list) == 0:
+            break
+        elem = int(random.randint(0, len(search_result_list)-1))
+        a, b = search_result_list[elem]
+        print(a, 'X', b, '= ',end=' ')
+        answer = int(input_number(""))
+        correct = mult(a, b)
+        if answer == correct:
+            print('Правильно\n')
+            countyes += 1
+            result_list.append([a, b, 1])
+        else:
+            print(f'Неправильно. Правильный ответ {correct}\n')
+            countno += 1
+            result_list.append([a, b, 0])
+        i += 1
+            #continue
+#    for i in range(tries):
+    for j in range(tries - i + 1):
+        #print("Внешний цикл")
+        #print("j", j)
+        a, b = pair(finish)
+#        a = int(random.randint(start,finish))
+#        b = int(random.randint(start,finish))
+        print(a, 'X', b, '= ',end=' ')
+        answer = int(input_number(""))
+        correct = mult(a, b)
+        if answer == correct:
+            print('Правильно\n')
+            countyes += 1
+            result_list.append([a, b, 1])
+        else:
+            print(f'Неправильно. Правильный ответ {correct}\n')
+            countno += 1
+            result_list.append([a, b, 0])
+    
+    print('Всего примеров решено: ', tries)
+    print('Правильно решено: ', countyes)
+    print('Неправильно решено: ', countno)
+    new_stat = diff_stat(user_stat, result_list)
+    print_stat(new_stat)
+    write_text_file(name, 'w', list_of_strings_from_list(new_stat))
+    input('\nВведите Enter, чтобы выйти ')
+
+"""    else:
+        a, b = pair(finish)
+#        a = int(random.randint(start,finish))
+#        b = int(random.randint(start,finish))
+        print(a, 'X', b, '= ',end=' ')
+        answer = int(input_number(""))
+        correct = mult(a, b)
+        if answer == correct:
+            print('Правильно\n')
+            countyes += 1
+            result_list.append([a, b, 1])
+        else:
+            print(f'Неправильно. Правильный ответ {correct}\n')
+            countno += 1
+            result_list.append([a, b, 0])"""
+
+
+
+
+"""    for i in range(tries):
         a, b = pair(finish)
 #        a = int(random.randint(start,finish))
 #        b = int(random.randint(start,finish))
@@ -176,13 +270,12 @@ def main():
             result_list.append([a, b, 0])
     print('Всего примеров решено: ', tries)
     print('Правильно решено: ', countyes)
-    print('Неправильно решено: ', countno)
+    print('Неправильно решено: ', countno)"""
 #    print(result_list)
-    new_stat = diff_stat(user_stat, result_list)
+
 #    print('new_stat', new_stat)
 #    print(list_of_strings_from_list(new_stat))
-    write_text_file(name, 'w', list_of_strings_from_list(new_stat))
-    input('\nВведите Enter, чтобы выйти')
+
 
 
 if __name__ == '__main__':
@@ -193,4 +286,7 @@ if __name__ == '__main__':
 Привести их к виду [a, b] и записать в список списков
 По длине списка случайно выбирать списки [a, b] и фиксировать ответы
 Записать ответы в файл статистики
+
+Написать функцию для определения времени ответа на задание.
+Написать функции для вывода минимального и максимального времени ответа на задание.
 """
