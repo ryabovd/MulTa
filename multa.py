@@ -134,7 +134,7 @@ def main():
         # Записать файл для нового пользователя
         new_user_data_list = ['0, ' for i in range(finish-1)] + ['0\n']
         new_user_data_list = new_user_data_list * finish
-        print(new_user_data_list)
+        print(new_user_data_list, '\n')
         write_text_file(name, 'w', new_user_data_list)
         #Добавить пользователя и число до которого решаем примеры в словарь
         #Добавить пользователя и число в файл пользователей
@@ -147,6 +147,7 @@ def main():
     user_stat = create_list(readlines(name))
     print("user_stat")
     print_stat(user_stat)
+    print()
     search_result_list = search_stat(user_stat)
     #print('search_result_list', search_result_list)
 #    print(name)
@@ -197,6 +198,7 @@ def main():
     print('Всего примеров решено: ', tries)
     print('Правильно решено: ', countyes)
     print('Неправильно решено: ', countno)
+    print()
     new_stat = diff_stat(user_stat, result_list)
     print_stat(new_stat)
     write_text_file(name, 'w', list_of_strings_from_list(new_stat))
@@ -214,6 +216,8 @@ if __name__ == '__main__':
 Записать ответы в файл статистики
 
 Написать функцию проверки ответа, чтобы сократить код и не повторяться.
+
+Написать функцию для отправки результатов на e-mail родителям.
 
 Написать функцию для определения времени ответа на задание.
 Написать функции для вывода минимального и максимального времени ответа на задание.
