@@ -13,18 +13,6 @@ def input_number(text):
         else:
             print(f"{number} не является числом. \nВведите новое число \n")
             number = input(text).strip()       
-
-
-"""def isNumeric(s):
-    return s.isdigit()"""
-
-
-"""def is_int(str):
-    try:
-        int(str)
-        return True
-    except ValueError:
-        return False"""
         
 
 def check_number(str):
@@ -40,12 +28,6 @@ def greeting(user_name, finish):
     print(f'{user_name}, решаем примеры до {finish} \n')
 
 
-"""def min_max(a, b):
-    min_number = min(a, b)
-    max_number = max(a, b)
-    return min_number, max_number"""
-
-
 def mult(a, b):
     return a * b
 
@@ -53,14 +35,6 @@ def mult(a, b):
 def user_name():
     name = input("Как вас зовут? ")
     return name
-
-
-def check_user_name(user_name):
-    pass
-
-
-def add_user_name(user_name):
-    pass
 
 
 def pair(finish):
@@ -133,9 +107,7 @@ def search_stat(user_stat):
     min_result = 0.8
     search_result_list = []
     for a in range(len(user_stat)):
-        #print('a', a)
         for b in range(len(user_stat[a])):
-            #print('b', b)
             if float(user_stat[a][b]) <= min_result:
                 search_result_list.append([a+1, b+1])
             else:
@@ -184,7 +156,6 @@ def main():
     result_list = []
     #print('round(len(search_result_list) * 0.8, 0)', round(len(search_result_list) * 0.8, 0))
     #print('tries', tries)
-    #if round(len(search_result_list) * 0.8) <= tries:
     i = 1
     while i <= tries * 0.8:
         #print("i", i)
@@ -206,8 +177,6 @@ def main():
             countno += 1
             result_list.append([a, b, 0])
         i += 1
-            #continue
-#    for i in range(tries):
     for j in range(tries - i + 1):
         #print("Внешний цикл")
         #print("j", j)
@@ -225,7 +194,6 @@ def main():
             print(f'Неправильно. Правильный ответ {correct}\n')
             countno += 1
             result_list.append([a, b, 0])
-    
     print('Всего примеров решено: ', tries)
     print('Правильно решено: ', countyes)
     print('Неправильно решено: ', countno)
@@ -233,49 +201,6 @@ def main():
     print_stat(new_stat)
     write_text_file(name, 'w', list_of_strings_from_list(new_stat))
     input('\nВведите Enter, чтобы выйти ')
-
-"""    else:
-        a, b = pair(finish)
-#        a = int(random.randint(start,finish))
-#        b = int(random.randint(start,finish))
-        print(a, 'X', b, '= ',end=' ')
-        answer = int(input_number(""))
-        correct = mult(a, b)
-        if answer == correct:
-            print('Правильно\n')
-            countyes += 1
-            result_list.append([a, b, 1])
-        else:
-            print(f'Неправильно. Правильный ответ {correct}\n')
-            countno += 1
-            result_list.append([a, b, 0])"""
-
-
-
-
-"""    for i in range(tries):
-        a, b = pair(finish)
-#        a = int(random.randint(start,finish))
-#        b = int(random.randint(start,finish))
-        print(a, 'X', b, '= ',end=' ')
-        answer = int(input_number(""))
-        correct = mult(a, b)
-        if answer == correct:
-            print('Правильно\n')
-            countyes += 1
-            result_list.append([a, b, 1])
-        else:
-            print(f'Неправильно. Правильный ответ {correct}\n')
-            countno += 1
-            result_list.append([a, b, 0])
-    print('Всего примеров решено: ', tries)
-    print('Правильно решено: ', countyes)
-    print('Неправильно решено: ', countno)"""
-#    print(result_list)
-
-#    print('new_stat', new_stat)
-#    print(list_of_strings_from_list(new_stat))
-
 
 
 if __name__ == '__main__':
@@ -285,7 +210,10 @@ if __name__ == '__main__':
 Найти в файле статистики результаты < 0.8
 Привести их к виду [a, b] и записать в список списков
 По длине списка случайно выбирать списки [a, b] и фиксировать ответы
+Добавить 20% заданий из общего списка для повторения.
 Записать ответы в файл статистики
+
+Написать функцию проверки ответа, чтобы сократить код и не повторяться.
 
 Написать функцию для определения времени ответа на задание.
 Написать функции для вывода минимального и максимального времени ответа на задание.
