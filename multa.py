@@ -2,6 +2,9 @@
 #Задает примеры для решения по таблице умножения. Можно самому настроить диапазон чисел для примеров.
 
 import random
+import datetime
+import smtplib
+import json
 
 
 def input_number(text):
@@ -120,6 +123,34 @@ def print_stat(list):
         print(el)
 
 
+def send_notification_email(text):
+    email = ['dmitryabov@yandex.ru']
+    with open('settings.json', 'r', encoding='utf-8') as file:
+        settings = json.load(file)
+        sender = settings["sender"]
+        sender_password = settings["sender_password"]
+    mail_lib = smtplib.SMTP_SSL('smtp.yandex.ru', 465)
+    mail_lib.login(sender, sender_password)
+    for to_item in email:
+        msg = 'From: %s\r\nTo: %s\r\nContent-Type: text/plain; charset="utf-8"\r\nSubject: %s\r\n\r\n' % (
+            sender, to_item, 'Изучение таблицы умножения {}'.format(date_today()))
+        msg += text
+        mail_lib.sendmail(sender, to_item, msg.encode('utf8'))
+    print('Данные отправлены на ' + email[0].upper())
+    mail_lib.quit()
+
+
+def text_for_email(user_name, result_list):
+    email_text = f"{user_name} решил {len(result_list)} заданий.\n"
+    return email_text
+
+
+def date_today():
+    '''Func that returned today date'''
+    today = datetime.date.today()
+    return today
+
+
 def main():
     users = readlines('users')
     user_dict = create_dict(users)
@@ -202,6 +233,8 @@ def main():
     new_stat = diff_stat(user_stat, result_list)
     print_stat(new_stat)
     write_text_file(name, 'w', list_of_strings_from_list(new_stat))
+    email_text = text_for_email(name, result_list)
+    send_notification_email(email_text)
     input('\nВведите Enter, чтобы выйти ')
 
 
