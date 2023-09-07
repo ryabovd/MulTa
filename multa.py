@@ -3,6 +3,7 @@
 
 import random
 import datetime
+import time
 import smtplib
 import json
 
@@ -124,7 +125,7 @@ def print_stat(list):
 
 
 def send_notification_email(text):
-    email = ['dmitryabov@yandex.ru']
+    email = ['dmitryabov@yandex.ru', 'tomas1309@yandex.ru']
     with open('settings.json', 'r', encoding='utf-8') as file:
         settings = json.load(file)
         sender = settings["sender"]
@@ -136,7 +137,7 @@ def send_notification_email(text):
             sender, to_item, 'Изучение таблицы умножения {}'.format(date_today()))
         msg += text
         mail_lib.sendmail(sender, to_item, msg.encode('utf8'))
-    print('Данные отправлены на ' + email[0].upper())
+    print('Данные отправлены на ' + (', ').join(email).upper())
     mail_lib.quit()
 
 
@@ -149,6 +150,14 @@ def date_today():
     '''Func that returned today date'''
     today = datetime.date.today()
     return today
+
+
+def response_time(time_start, time_end):
+    return time_end - time_start
+
+
+def time_now():
+    return time.monotonic()
 
 
 def main():
@@ -186,6 +195,8 @@ def main():
     countyes = 0
     countno = 0
     result_list = []
+    best_time = 3600
+    worst_time = 0
     #print('round(len(search_result_list) * 0.8, 0)', round(len(search_result_list) * 0.8, 0))
     #print('tries', tries)
     i = 1
@@ -198,17 +209,31 @@ def main():
         elem = int(random.randint(0, len(search_result_list)-1))
         a, b = search_result_list[elem]
         print(a, 'X', b, '= ',end=' ')
+        time_start = time_now()
+        #print('time_start', time_start)
         answer = int(input_number(""))
+        time_end = time_now()
+        #print(time_end)
+        time_answer = response_time(time_start, time_end)
+        #print(time_answer)
+        if time_answer < best_time:
+            best_time = time_answer
+        if time_answer > worst_time:
+            worst_time = time_answer
         correct = mult(a, b)
         if answer == correct:
             print('Правильно\n')
             countyes += 1
             result_list.append([a, b, 1])
+            #print(f'Время ответа {time_answer:>.3f}')
         else:
             print(f'Неправильно. Правильный ответ {correct}\n')
             countno += 1
             result_list.append([a, b, 0])
+            #print(f'Время ответа {time_answer:>3f}')
         i += 1
+        
+
     for j in range(tries - i + 1):
         #print("Внешний цикл")
         #print("j", j)
@@ -229,12 +254,14 @@ def main():
     print('Всего примеров решено: ', tries)
     print('Правильно решено: ', countyes)
     print('Неправильно решено: ', countno)
+    print(f'Самый быстрый ответ {best_time:.3f} секунд')
+    print(f'Самый долгий ответ {worst_time:.3f} секунд')
     print()
     new_stat = diff_stat(user_stat, result_list)
     print_stat(new_stat)
     write_text_file(name, 'w', list_of_strings_from_list(new_stat))
     email_text = text_for_email(name, result_list)
-    send_notification_email(email_text)
+    #send_notification_email(email_text)
     input('\nВведите Enter, чтобы выйти ')
 
 
