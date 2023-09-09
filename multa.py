@@ -160,6 +160,7 @@ def time_now():
     return time.monotonic()
 
 
+<<<<<<< HEAD
 def grade_lesson(tries, countyes):
     mark = 'нет оценки'
     #print('countyes / tries', countyes / tries)
@@ -176,6 +177,8 @@ def grade_lesson(tries, countyes):
     return mark
 
 
+=======
+>>>>>>> cf13d4944f30f65a0ab7486e42a3a2bfad0623fb
 def main():
     users = readlines('users')
     user_dict = create_dict(users)
@@ -270,9 +273,15 @@ def main():
     print('Всего примеров решено: ', tries)
     print('Правильно решено: ', countyes)
     print('Неправильно решено: ', countno)
+<<<<<<< HEAD
     print(f'Самый быстрый ответ {best_time:.1f} секунд')
     print(f'Самый долгий ответ {worst_time:.1f} секунд')
     print(grade_lesson(tries, countyes))
+=======
+    print(f'Самый быстрый ответ {best_time:.3f} секунд')
+    print(f'Самый долгий ответ {worst_time:.3f} секунд')
+    print()
+>>>>>>> cf13d4944f30f65a0ab7486e42a3a2bfad0623fb
     new_stat = diff_stat(user_stat, result_list)
     print_stat(new_stat)
     write_text_file(name, 'w', list_of_strings_from_list(new_stat))
