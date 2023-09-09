@@ -160,6 +160,22 @@ def time_now():
     return time.monotonic()
 
 
+def grade_lesson(tries, countyes):
+    mark = 'нет оценки'
+    #print('countyes / tries', countyes / tries)
+    if countyes / tries >= 0.9:
+        mark = 'Отлично! Пять! Пятак! Ты, умничка!'
+    elif 0.8 <= countyes / tries < 0.9:
+        mark = 'Хорошо! Четыре! Четвертак! Ты, молодец!'
+    elif 0.67 <= countyes / tries < 0.8:
+        mark = 'Удовлетворительно. Три. Удовл. Трояк.'     
+    elif 0.2 <= countyes / tries < 0.67:
+        mark = 'Неудовлетворительно. Два. Пара. Гусь. Двояк!'
+    elif 0 <= countyes / tries < 0.2:
+        mark = 'Кол. Единица.'
+    return mark
+
+
 def main():
     users = readlines('users')
     user_dict = create_dict(users)
@@ -254,9 +270,9 @@ def main():
     print('Всего примеров решено: ', tries)
     print('Правильно решено: ', countyes)
     print('Неправильно решено: ', countno)
-    print(f'Самый быстрый ответ {best_time:.3f} секунд')
-    print(f'Самый долгий ответ {worst_time:.3f} секунд')
-    print()
+    print(f'Самый быстрый ответ {best_time:.1f} секунд')
+    print(f'Самый долгий ответ {worst_time:.1f} секунд')
+    print(grade_lesson(tries, countyes))
     new_stat = diff_stat(user_stat, result_list)
     print_stat(new_stat)
     write_text_file(name, 'w', list_of_strings_from_list(new_stat))
@@ -275,10 +291,13 @@ if __name__ == '__main__':
 Добавить 20% заданий из общего списка для повторения.
 Записать ответы в файл статистики
 
+ВАЖНО
 Написать функцию проверки ответа, чтобы сократить код и не повторяться.
 
 Написать функцию для отправки результатов на e-mail родителям.
 
 Написать функцию для определения времени ответа на задание.
 Написать функции для вывода минимального и максимального времени ответа на задание.
+
+Написать функцию для проверки таблицы результатов и, если коэффициенты больше 0.8, то увеличить область изучаемой таблицы умножения на 1
 """
