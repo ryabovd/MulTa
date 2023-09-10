@@ -172,14 +172,21 @@ def grade_lesson(tries, countyes):
     elif 0.2 <= countyes / tries < 0.67:
         mark = 'Неудовлетворительно. Два. Пара. Гусь. Двояк!'
     elif 0 <= countyes / tries < 0.2:
-        mark = 'Кол. Единица.'
+        mark = 'Кол. Единица. \nЭто фиаско, братан! \nНужно еще поучить.'
     return mark
+
+
+def right_time(time_answer):
+    if time_answer <= 10:
+        return True
+    else:
+        return False
 
 
 def main():
     users = readlines('users')
     user_dict = create_dict(users)
-    print(user_dict)
+    #print(user_dict)
     name = user_name()
     if name in user_dict:
         finish = int(user_dict[name])
@@ -190,7 +197,7 @@ def main():
         # Записать файл для нового пользователя
         new_user_data_list = ['0, ' for i in range(finish-1)] + ['0\n']
         new_user_data_list = new_user_data_list * finish
-        print(new_user_data_list, '\n')
+        #print(new_user_data_list, '\n')
         write_text_file(name, 'w', new_user_data_list)
         #Добавить пользователя и число до которого решаем примеры в словарь
         #Добавить пользователя и число в файл пользователей
@@ -201,9 +208,8 @@ def main():
     greeting(name, finish)
     tries = int(input_number('Введи кол-во задач: '))
     user_stat = create_list(readlines(name))
-    print("user_stat")
-    print_stat(user_stat)
-    print()
+    #print_stat(user_stat)
+    #print()
     search_result_list = search_stat(user_stat)
     #print('search_result_list', search_result_list)
 #    print(name)
@@ -240,8 +246,11 @@ def main():
         if answer == correct:
             print('Правильно\n')
             countyes += 1
-            result_list.append([a, b, 1])
-            #print(f'Время ответа {time_answer:>.3f}')
+            if right_time(time_answer) == True:
+                result_list.append([a, b, 1])
+            else:
+                result_list.append([a, b, 0])                
+                print(f'Время ответа {time_answer:>.1f}. Решай быстрее!')
         else:
             print(f'Неправильно. Правильный ответ {correct}\n')
             countno += 1
@@ -274,7 +283,7 @@ def main():
     print(f'Самый долгий ответ {worst_time:.1f} секунд')
     print(grade_lesson(tries, countyes))
     new_stat = diff_stat(user_stat, result_list)
-    print_stat(new_stat)
+    #print_stat(new_stat)
     write_text_file(name, 'w', list_of_strings_from_list(new_stat))
     email_text = text_for_email(name, result_list)
     #send_notification_email(email_text)
