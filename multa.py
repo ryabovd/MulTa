@@ -217,7 +217,7 @@ def main():
     countyes = 0
     countno = 0
     result_list = []
-    best_time = 3600
+    best_time = 3600.0
     worst_time = 0
     #print('round(len(search_result_list) * 0.8, 0)', round(len(search_result_list) * 0.8, 0))
     #print('tries', tries)
@@ -266,6 +266,17 @@ def main():
 #        a = int(random.randint(start,finish))
 #        b = int(random.randint(start,finish))
         print(a, 'X', b, '= ',end=' ')
+        time_start = time_now()
+        #print('time_start', time_start)
+        answer = int(input_number(""))
+        time_end = time_now()
+        #print(time_end)
+        time_answer = response_time(time_start, time_end)
+        #print(time_answer)
+        if time_answer < best_time:
+            best_time = time_answer
+        if time_answer > worst_time:
+            worst_time = time_answer
         answer = int(input_number(""))
         correct = mult(a, b)
         if answer == correct:
