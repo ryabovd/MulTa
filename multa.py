@@ -29,7 +29,7 @@ def check_number(str):
     
 
 def greeting(user_name, finish):
-    print(f'{user_name}, решаем примеры до {finish} \n')
+    print(f'{user_name}, решаем примеры до {finish} \nНе бойся ошибаться! \nЯ тебя натренирую!')
 
 
 def mult(a, b):
@@ -37,7 +37,7 @@ def mult(a, b):
 
 
 def user_name():
-    name = input("Как вас зовут? ")
+    name = input("Как тебя зовут? \nВведи имя для загрузки статистики занятий ... ")
     return name
 
 
@@ -181,9 +181,20 @@ def right_time(time_answer):
         return True
     else:
         return False
+    
+
+def check_users_file():
+    try:
+        file = open('users.txt')
+    except IOError as e:
+        #print(u'не удалось открыть файл users.txt\n создаем файл users.txt')
+        write_text_file('users', 'w', ['test, 1\n'])
+    else:
+        pass
 
 
 def main():
+    check_users_file()
     users = readlines('users')
     user_dict = create_dict(users)
     #print(user_dict)
@@ -191,7 +202,7 @@ def main():
     if name in user_dict:
         finish = int(user_dict[name])
     else:
-        finish = int(input_number(f'{name}, до какого числа учим таблицу (10, 20)? '))
+        finish = int(input_number(f'{name}, до какого числа учим таблицу (5, 10, 20, любое число)? '))
         user_dict[name] = finish
         write_text_file('users', 'a', [name + ', ' + str(finish) + '\n'])
         # Записать файл для нового пользователя
@@ -277,12 +288,16 @@ def main():
             best_time = time_answer
         if time_answer > worst_time:
             worst_time = time_answer
-        answer = int(input_number(""))
+        #answer = int(input_number(""))
         correct = mult(a, b)
         if answer == correct:
             print('Правильно\n')
             countyes += 1
-            result_list.append([a, b, 1])
+            if right_time(time_answer) == True:
+                result_list.append([a, b, 1])
+            else:
+                result_list.append([a, b, 0])                
+                print(f'Время ответа {time_answer:>.1f}. Решай быстрее!')
         else:
             print(f'Неправильно. Правильный ответ {correct}\n')
             countno += 1
